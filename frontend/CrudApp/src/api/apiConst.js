@@ -2,7 +2,7 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import NetInfo from '@react-native-community/netinfo';
 
-export const BASE_URL = 'https://mern-crud-theta-eight.vercel.app/'
+export const BASE_URL = 'https://mern-crud-mauve.vercel.app/'
 
 class APIError extends Error {
     constructor(message, status, data, originalError) {

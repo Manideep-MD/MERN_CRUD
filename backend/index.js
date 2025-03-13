@@ -6,28 +6,28 @@ import bodyParser from "body-parser";
 import route from "./Routes/crudRoutes.js";
 import userRoute from "./Routes/userRoutes.js";
 
-var app = express();
+const app = express();
 
 app.use(cors());
-
 app.use(bodyParser.json());
 dotenv.config();
+
 const PORT = process.env.PORT || 7000;
 const MONGOURL = process.env.MONGO_URL;
 
 mongoose
   .connect(MONGOURL)
   .then(() => {
-    console.log("Database connected");
+    console.log(`Database connected at ${MONGOURL}`);
     app.listen(PORT, () => {
-      console.log(`Server is running on port${PORT}`);
+      console.log(`Server is running on port ${PORT}`);
     });
   })
   .catch((error) => {
-    console.log(error);
+    console.error(`MongoDB connection error: ${error.message}`);
   });
 
-app.get("/products/", function (req, res, next) {
+app.get("/products/", (req, res) => {
   res.json({ msg: "This is CORS-enabled for all origins!" });
 });
 
