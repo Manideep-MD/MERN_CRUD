@@ -96,5 +96,11 @@ export const createStyles = (theme: ThemeColors) =>
       fontWeight: 'bold',
       fontFamily: 'Arial',
       letterSpacing: 1,
-    }
+    },
+    errorPasswordContainer: {
+      paddingLeft: 15,
+      position:'relative',
+      bottom:12
+      // marginBottom:10
+    },
   });

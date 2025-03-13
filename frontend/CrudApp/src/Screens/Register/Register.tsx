@@ -13,7 +13,6 @@ import {createStyles} from './Register.styles';
 import VisibleIcon from 'react-native-vector-icons/Entypo';
 import NotVisibleIcon from 'react-native-vector-icons/Entypo';
 import {useIsFocused, useNavigation} from '@react-navigation/native';
-import Toast from 'react-native-simple-toast';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
 import {EMAIL_REGEX, PASSWORD_REGEX} from '../../constants/Regex';
@@ -111,9 +110,11 @@ const Register = () => {
                     value={values.fullName}
                     onChangeText={handleChange('fullName')}
                   />
-                  {touched?.fullName && errors?.fullName && (
-                    <ErrorText text={errors?.fullName} />
-                  )}
+                  <View style={styles.errorContainer}>
+                    {touched?.fullName && errors?.fullName && (
+                      <ErrorText text={errors?.fullName} />
+                    )}
+                  </View>
                 </View>
 
                 <View>
@@ -124,9 +125,11 @@ const Register = () => {
                     value={values.email}
                     onChangeText={handleChange('email')}
                   />
-                  {touched?.email && errors?.email && (
-                    <ErrorText text={errors?.email} />
-                  )}
+                  <View style={styles.errorContainer}>
+                    {touched?.email && errors?.email && (
+                      <ErrorText text={errors?.email} />
+                    )}
+                  </View>
                 </View>
 
                 <View>
@@ -152,9 +155,11 @@ const Register = () => {
                     )}
                   </TouchableOpacity>
                 </View>
-                {touched?.password && errors?.password && (
-                  <ErrorText text={errors?.password} />
-                )}
+                <View style={styles.errorPasswordContainer}>
+                  {touched?.password && errors?.password && (
+                    <ErrorText text={errors?.password} />
+                  )}
+                </View>
 
                 <View>
                   <TextInput
@@ -179,9 +184,11 @@ const Register = () => {
                     )}
                   </TouchableOpacity>
                 </View>
-                {touched?.confirmPassword && errors?.confirmPassword && (
-                  <ErrorText text={errors?.confirmPassword} />
-                )}
+                <View style={styles.errorPasswordContainer}>
+                  {touched?.confirmPassword && errors?.confirmPassword && (
+                    <ErrorText text={errors?.confirmPassword} />
+                  )}
+                </View>
 
                 <View style={styles.rememberContainer}>
                   <View style={styles.rememberTextContainer}>

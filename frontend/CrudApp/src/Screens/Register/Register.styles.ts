@@ -85,4 +85,15 @@ export const createStyles = (theme: ThemeColors) =>
       fontFamily: 'Arial',
       letterSpacing: 1,
     },
+    errorContainer: {
+      paddingLeft: 15,
+      // marginBottom:10
+    },
+    errorPasswordContainer: {
+      paddingLeft: 15,
+      position:'relative',
+      bottom:12
+      // marginBottom:10
+    },
+    showIcon:{position: 'absolute', right: 17, bottom: 40}
   });

@@ -12,7 +12,11 @@ import {
 import {SafeAreaView} from 'react-native-safe-area-context';
 import VisibleIcon from 'react-native-vector-icons/Entypo';
 import NotVisibleIcon from 'react-native-vector-icons/Entypo';
-import {useIsFocused, useNavigation} from '@react-navigation/native';
+import {
+  useFocusEffect,
+  useIsFocused,
+  useNavigation,
+} from '@react-navigation/native';
 import {createStyles} from './Login.styles';
 import {Formik} from 'formik';
 import * as Yup from 'yup';
@@ -33,26 +37,32 @@ const Login = () => {
     setShow(true);
   }, [focus]);
 
-  useEffect(() => {
-    const backAction = () => {
-      Alert.alert('Exit Crud App', 'Are you sure you want to exit the app?', [
-        {
-          text: 'Cancel',
-          onPress: () => null,
-          style: 'cancel',
-        },
-        {text: 'YES', onPress: () => BackHandler.exitApp()},
-      ]);
-      return true;
-    };
+  useFocusEffect(
+    React.useCallback(() => {
+      const backAction = () => {
+        Alert.alert(
+          'Close Crud App',
+          'Are you sure you want to exit the app?',
+          [
+            {
+              text: 'Cancel',
+              onPress: () => null,
+              style: 'cancel',
+            },
+            {text: 'YES', onPress: () => BackHandler.exitApp()},
+          ],
+        );
+        return true;
+      };
 
-    const backHandler = BackHandler.addEventListener(
-      'hardwareBackPress',
-      backAction,
-    );
+      const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        backAction,
+      );
 
-    return () => backHandler.remove();
-  }, []);
+      return () => backHandler.remove();
+    }, []),
+  );
 
   const initialValues = {
     email: '',
@@ -80,7 +90,7 @@ const Login = () => {
   };
 
   const handleUserLogin = async (values: any) => {
-    console.log(values,"val")
+    console.log(values, 'val');
     const payload = {
       email: values?.email.trim().toLowerCase(),
       password: values?.password,
@@ -130,10 +140,10 @@ const Login = () => {
                         onChangeText={handleChange('email')}
                         onBlur={handleBlur('email')}
                       />
-                      <View style={{paddingLeft:15}}>
-                      {touched?.email && errors?.email && (
-                        <ErrorText text={errors?.email} />
-                      )}
+                      <View style={{paddingLeft: 15}}>
+                        {touched?.email && errors?.email && (
+                          <ErrorText text={errors?.email} />
+                        )}
                       </View>
                     </View>
 
@@ -161,11 +171,11 @@ const Login = () => {
                         )}
                       </TouchableOpacity>
                     </View>
-                    <View style={{paddingLeft:15}}>
+                    <View style={styles.errorPasswordContainer}>
                       {touched?.password && errors?.password && (
                         <ErrorText text={errors?.password} />
                       )}
-                      </View>
+                    </View>
                   </View>
 
                   <View style={styles.rememberContainer}>
@@ -196,7 +206,6 @@ const Login = () => {
             <Text style={styles.createText}>Create an account !</Text>
           </TouchableOpacity>
         </View>
-        {/* {loading && <Loader />} */}
       </ScrollView>
     </>
   );

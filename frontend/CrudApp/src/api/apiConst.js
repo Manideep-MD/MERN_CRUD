@@ -2,7 +2,7 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import NetInfo from '@react-native-community/netinfo';
 
-export const BASE_URL = 'http://192.168.0.113:6000/'
+export const BASE_URL = 'http://192.168.9.110:6000/'
 
 class APIError extends Error {
     constructor(message, status, data, originalError) {

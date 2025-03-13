@@ -3,9 +3,7 @@ import React, {useState} from 'react';
 import {ThemeColors} from '../../theme/themeConfig';
 import {useCustomTheme} from '../../theme/ThemeContext';
 import EditIcon from 'react-native-vector-icons/Feather';
-import DeleteIcon from 'react-native-vector-icons/MaterialIcons';
-import {SheetManager} from 'react-native-actions-sheet';
-import {Sheets} from '../../constants/SheetConstants';
+
 
 interface CardProps {
   item: any;
@@ -16,13 +14,18 @@ const Card: React.FC<CardProps> = ({item, handleTaskDetails}) => {
   const {theme} = useCustomTheme();
   const styles = createStyles(theme);
 
- 
-
   return (
     <View style={styles.container}>
       <Text>{item?.title}</Text>
       <View style={styles.buttonContainer}>
-        <TouchableOpacity style={{width:50,height:35,justifyContent:'center',alignItems:'center'}} onPress={() => handleTaskDetails(item?._id)}>
+        <TouchableOpacity
+          style={{
+            width: 50,
+            height: 35,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+          onPress={() => handleTaskDetails(item?._id)}>
           <EditIcon name="edit" size={22} color={theme.cardDescription} />
         </TouchableOpacity>
         {/* <TouchableOpacity onPress={() => handleDelete()}>

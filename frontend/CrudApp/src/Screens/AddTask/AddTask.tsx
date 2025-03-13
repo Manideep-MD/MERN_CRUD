@@ -23,6 +23,7 @@ import {REMOVE_TASK} from '../../Redux/Reducers/TaskReducer';
 import {SheetManager} from 'react-native-actions-sheet';
 import {Sheets} from '../../constants/SheetConstants';
 import {HIDE_LOADER, SHOW_LOADER} from '../../Redux/Reducers/LoaderReducers';
+import LeftArrow from 'react-native-vector-icons/FontAwesome6';
 
 const AddTask = () => {
   const {theme} = useCustomTheme();
@@ -118,8 +119,15 @@ const AddTask = () => {
     });
   };
 
+  const handleDashboard = () => {
+    navigation.navigate('Dashboard');
+  };
+
   return (
     <View style={styles.container}>
+      <TouchableOpacity style={styles.arrowButton} onPress={handleDashboard}>
+        <LeftArrow name="arrow-left-long" size={25} color={theme.blueColor} />
+      </TouchableOpacity>
       <View style={styles.headerContainer}>
         <Text style={styles.headerText}>
           {Object.values(taskDetails).length > 0
@@ -256,4 +264,16 @@ const createStyles = (theme: ThemeColors) =>
       alignItems: 'center',
     },
     headerText: {fontSize: 19, fontWeight: 'bold'},
+    arrowButton: {
+      width: 50,
+      height: 50,
+      borderRadius: 50,
+      borderWidth: 1,
+      justifyContent: 'center',
+      alignItems: 'center',
+      borderColor: theme.borderColor,
+      position: 'absolute',
+      left: 10,
+      top: 20,
+    },
   });

@@ -1,4 +1,6 @@
 import {
+  Alert,
+  BackHandler,
   FlatList,
   RefreshControl,
   ScrollView,
@@ -18,12 +20,15 @@ import {useDispatch, useSelector} from 'react-redux';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {fetchTaskDetails, fetchTasks} from '../../api/api';
 import Toast from 'react-native-simple-toast';
-import {useIsFocused, useNavigation} from '@react-navigation/native';
+import {
+  useFocusEffect,
+  useIsFocused,
+  useNavigation,
+} from '@react-navigation/native';
 import {REMOVE_TASK, SET_TASK} from '../../Redux/Reducers/TaskReducer';
 import {REMOVE_TOKEN} from '../../Redux/Reducers/TokenReducers';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 import {HIDE_LOADER, SHOW_LOADER} from '../../Redux/Reducers/LoaderReducers';
-import Loader from '../../Components/Loader/Loader';
 import {RootState} from '../../Redux/Store/store';
 
 const Dashboard = () => {
@@ -39,13 +44,38 @@ const Dashboard = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const visible = useSelector((state: RootState) => state.loader.visible);
 
-  console.log(visible, 'vvvvvvv');
-
   useEffect(() => {
     if (loginToken) {
       handleFetchTasks();
     }
   }, []);
+
+  useFocusEffect(
+    useCallback(() => {
+      const backAction = () => {
+        Alert.alert(
+          'Close Crud App',
+          'Are you sure you want to exit the app?',
+          [
+            {
+              text: 'Cancel',
+              onPress: () => null,
+              style: 'cancel',
+            },
+            {text: 'YES', onPress: () => BackHandler.exitApp()},
+          ],
+        );
+        return true;
+      };
+
+      const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        backAction,
+      );
+
+      return () => backHandler.remove();
+    }, []),
+  );
 
   const onRefresh = useCallback(async () => {
     setRefreshing(true);
@@ -144,8 +174,6 @@ const Dashboard = () => {
       dispatch(HIDE_LOADER());
     }
   };
-
-  console.log(loading, 'kkkkkkkkkk');
 
   return (
     <>

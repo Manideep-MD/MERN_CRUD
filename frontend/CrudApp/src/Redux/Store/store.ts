@@ -35,18 +35,17 @@ const rootReducer = combineReducers({
 });
 
 const axiosMiddleware = (store: any) => (next: any) => async (action: any) => {
-    let token = store.getState()?.auth?.loginToken;
+  let token = store.getState()?.auth?.loginToken;
 
-    if (!token) {
-      token = await AsyncStorage.getItem('userToken');
-    }
+  if (!token) {
+    token = await AsyncStorage.getItem('userToken');
+  }
 
-
-    if (token) {
-      apiClient.defaults.headers.common['Authorization'] = `Token ${token}`;
-    } else {
-      delete apiClient.defaults.headers.common['Authorization'];
-    }
+  if (token) {
+    apiClient.defaults.headers.common['Authorization'] = `Token ${token}`;
+  } else {
+    delete apiClient.defaults.headers.common['Authorization'];
+  }
 
   return next(action);
 };
