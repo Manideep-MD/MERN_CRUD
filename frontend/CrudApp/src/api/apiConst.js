@@ -88,8 +88,8 @@ axiosRetry(apiClient, {
 
         const shouldRetry = (
             !status || 
-            status === 500 || // Server errors
-            status === 503 || // Service unavailable
+            status === 500 || 
+            status === 503 || 
             status === 'NETWORK_ERROR'
         );
 

@@ -165,7 +165,7 @@ const AddTask = () => {
                   placeholder="Enter task title"
                 />
 
-                {touched.title && errors.title && (
+                {touched?.title && errors?.title && (
                   <ErrorText text={errors?.title} />
                 )}
               </View>

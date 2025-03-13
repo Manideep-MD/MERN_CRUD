@@ -30,6 +30,7 @@ import {REMOVE_TOKEN} from '../../Redux/Reducers/TokenReducers';
 import {heightPercentageToDP} from 'react-native-responsive-screen';
 import {HIDE_LOADER, SHOW_LOADER} from '../../Redux/Reducers/LoaderReducers';
 import {RootState} from '../../Redux/Store/store';
+import NoDataFound from '../../Components/NoDataFound/NoDataFound';
 
 const Dashboard = () => {
   const {theme} = useCustomTheme();
@@ -201,6 +202,13 @@ const Dashboard = () => {
               <View>
                 <FlatList
                   showsVerticalScrollIndicator={false}
+                  ListEmptyComponent={() =>
+                    taskData.length == 0 && (
+                      <View style={styles.noDataContainer}>
+                        <NoDataFound />
+                      </View>
+                    )
+                  }
                   data={taskData}
                   keyExtractor={item => item?.id?.toString()}
                   renderItem={renderTaskList}
@@ -248,5 +256,10 @@ const createStyles = (theme: ThemeColors) =>
       color: theme.background,
       fontWeight: 'bold',
       letterSpacing: 1,
+    },
+    noDataContainer: {
+      justifyContent: 'center',
+      alignItems: 'center',
+      height: heightPercentageToDP('50%'),
     },
   });

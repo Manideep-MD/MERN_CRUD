@@ -140,7 +140,7 @@ const Login = () => {
                         onChangeText={handleChange('email')}
                         onBlur={handleBlur('email')}
                       />
-                      <View style={{paddingLeft: 15}}>
+                      <View style={styles.error}>
                         {touched?.email && errors?.email && (
                           <ErrorText text={errors?.email} />
                         )}

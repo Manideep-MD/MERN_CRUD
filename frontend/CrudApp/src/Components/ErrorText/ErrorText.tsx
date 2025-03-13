@@ -12,14 +12,14 @@ const ErrorText: React.FC<ErrorProps> = ({text}) => {
   const {theme} = useCustomTheme();
   const styles = createStyles(theme);
   return (
-    <View style={{flexDirection: 'row', alignItems: 'center', gap: 5}}>
+    <View style={styles.errorContainer}>
       <ErrorIcon name="error-outline" size={16} color={'red'} />
       <Text style={styles.errorText}>{text}</Text>
     </View>
   );
 };
 
-export default ErrorText;
+export default React.memo(ErrorText);
 
 export const createStyles = (theme: ThemeColors) =>
   StyleSheet.create({
@@ -27,4 +27,5 @@ export const createStyles = (theme: ThemeColors) =>
       color: 'red',
       fontSize: 12,
     },
+    errorContainer: {flexDirection: 'row', alignItems: 'center', gap: 5},
   });

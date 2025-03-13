@@ -103,4 +103,5 @@ export const createStyles = (theme: ThemeColors) =>
       bottom:12
       // marginBottom:10
     },
+    error:{paddingLeft: 15}
   });
